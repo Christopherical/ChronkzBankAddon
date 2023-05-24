@@ -1,0 +1,9 @@
+## Interface: 30401 
+## Version: 1.0.0
+## Title: Chronkz Bank Addon
+## Notes: Gets Bank Information
+## Author: Chronkz
+## SavedVariables: GuildBankInfo
+## SavedVariablesPerCharacter: GuildBankInfoLocal
+
+ChronkzBankAddon.lua
