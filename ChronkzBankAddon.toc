@@ -4,6 +4,6 @@
 ## Notes: Gets Bank Information
 ## Author: Chronkz
 ## SavedVariables: GuildBankInfo
-## SavedVariablesPerCharacter: GuildBankInfoLocal
+## SavedVariablesPerCharacter: GuildBankInfoLocal, ItemNameThing
 
 ChronkzBankAddon.lua

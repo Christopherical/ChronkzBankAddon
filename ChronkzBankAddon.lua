@@ -6,8 +6,14 @@ frame:SetScript("OnEvent", function(self, event, arg1)
     if event == "ADDON_LOADED" and arg1 == "ChronkzBankAddon" then
         -- Our saved variables, if they exist, have been loaded at this point.
         -- local a = GetGuildBankTabInfo(1)
-         GuildBankInfo = "Global"
-         GuildBankInfoLocal = "Local"
+        local tableThing = {}
+        for i=1,97,1 do
+            table.insert(tableThing, GetGuildBankItemLink(1,i))
+        end
+        ItemNameThing = tableThing
+
+        GuildBankInfo = "Global"
+        GuildBankInfoLocal = "Local"
     end
 end)
 
