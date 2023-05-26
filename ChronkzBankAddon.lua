@@ -1,8 +1,10 @@
-local frame = CreateFrame("Frame")
-frame:RegisterEvent("ADDON_LOADED")
-frame:RegisterEvent("PLAYER_LOGOUT")
+local EventFrame = CreateFrame("Frame", "EventFrame")
+EventFrame:RegisterEvent("ADDON_LOADED")
+EventFrame:RegisterEvent("PLAYER_LOGOUT")
+EventFrame:RegisterEvent("GUILDBANKBAGSLOTS_CHANGED")
 
-frame:SetScript("OnEvent", function(self, event, arg1)
+
+EventFrame:SetScript("OnEvent", function(self, event, arg1)
     if event == "ADDON_LOADED" and arg1 == "ChronkzBankAddon" then
         if GuildBankItemNames == nil then
             GuildBankItemNames = {}
@@ -10,43 +12,45 @@ frame:SetScript("OnEvent", function(self, event, arg1)
         if GuildBankItemAmounts == nil then
             GuildBankItemAmounts = {}
         end
-        if Aa == nil then
-            Aa = {}
+        if CombinedItemAmountTable == nil then
+            CombinedItemAmountTable = {}
         end
-        if Bb == nil then
-            Bb = {}
+    elseif event == "GUILDBANKBAGSLOTS_CHANGED" then
+        local temp2 = {}
+
+        for tab = 1, 4, 1 do
+            for i = 1, 98, 1 do
+                local a, b = GetGuildBankItemInfo(tab, i)
+                if a ~= nil then
+                    temp2[i + ((tab - 1) * 98)] = b
+                else
+                    temp2[i + ((tab - 1) * 98)] = "No Item"
+                end
+            end
         end
-        if Cc == nil then
-            Cc = {}
-        end
-        if Dd == nil then
-            Dd = {}
-        end
-        if Ee == nil then
-            Ee = {}
-        end
+
+        GuildBankItemAmounts = temp2
     elseif event == "PLAYER_LOGOUT" then
-        -- local temporaryNameTable = {}
-        -- local temporaryCountTable = {}
-        -- for tab = 1, 4, 1 do
-        --     local temp1 = {}
-        --     for i = 1, 98, 1 do
-        --         if GetGuildBankItemLink(tab, i) ~= nil then
-        --             table.insert(temp1, GetGuildBankItemLink(tab, i))
-        --         else
-        --             table.insert(temp1, "No Item")
-        --         end
-        --     end
-        --     table.insert(temporaryNameTable, temp1)
-        -- end
-        -- GuildBankItemNames = temporaryNameTable
-        local a, b, c, d, e = GetGuildBankItemInfo(1, 1)
-        Aa = a
-        Bb = b
-        Cc = c
-        Dd = d
-        Ee = e
-        GuildBankItemNames = "fish"
-        GuildBankItemAmounts = "cheese"
+        local temp1 = {}
+
+        for tab = 1, 4, 1 do
+            for i = 1, 98, 1 do
+                if GetGuildBankItemLink(tab, i) ~= nil then
+                    temp1[i + ((tab - 1) * 98)] = GetGuildBankItemLink(tab, i)
+                else
+                    temp1[i + ((tab - 1) * 98)] = "No Item"
+                end
+            end
+        end
+
+        GuildBankItemNames = temp1
+        CombinedItemAmountTable = {}
+
+        for i = 1, #GuildBankItemNames, 1 do
+            table.insert(CombinedItemAmountTable, { GuildBankItemNames[i], GuildBankItemAmounts[i] })
+        end
+
+        GuildBankItemNames = 0
+        GuildBankItemAmounts = 0
     end
 end)

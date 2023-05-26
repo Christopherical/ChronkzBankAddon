@@ -4,6 +4,6 @@
 ## Notes: Gets Bank Information
 ## Author: Chronkz
 ## SavedVariables: GlobalTable
-## SavedVariablesPerCharacter: GuildBankItemNames, GuildBankItemAmounts, Aa, Bb, Cc, Dd, Ee
+## SavedVariablesPerCharacter: GuildBankItemNames, GuildBankItemAmounts, CombinedItemAmountTable
 
 ChronkzBankAddon.lua
